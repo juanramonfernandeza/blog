@@ -5,6 +5,7 @@ gem 'simple_form'
 gem 'slim-rails'
 gem 'apartment'
 gem 'pry-rails'
+gem 'interactor', '~> 3.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'

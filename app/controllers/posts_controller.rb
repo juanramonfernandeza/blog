@@ -4,11 +4,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    if @tenant == 'hansolo'
-      flash[:notice] = "It's really cold out there."
-    elsif @tenant == 'chewbacca'
-      flash[:notice] = "Have you grred today?"
-    end
+    flash[:notice] = SetIndexFlash.call(tenant: @tenant).message
     @posts = Post.all
   end
 
