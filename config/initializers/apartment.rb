@@ -21,9 +21,8 @@ Apartment.configure do |config|
   # This object should yield an array of strings representing each Tenant name.
   #
   # config.tenant_names = lambda{ Customer.pluck(:tenant_name) }
-  # config.tenant_names = ['tenant1', 'tenant2']
-  #
-  config.tenant_names = lambda { ToDo_Tenant_Or_User_Model.pluck :database }
+  # Hardcoded because I wasn't required otherwise
+  config.tenant_names = ['hansolo', 'chewbacca']
 
   #
   # ==> PostgreSQL only options
