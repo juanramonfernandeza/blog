@@ -1,0 +1,124 @@
+Blog
+====
+
+Introduction
+------------
+
+This was an exercise provided by Polo and Isaac. The goal was to write a rails app in 2 hours that had multitenancy, and if possible used interactors.
+
+
+Requirements
+------------
+* Ruby 2.2.1
+* Rails 4.2.1
+* Postgres 9.3
+
+Installation
+------------
+
+Clone the project
+~~~~~~~~~~~~~~~~~
+[source,bash]
+$: git clone git@github.com:juanramonfernandeza/blog.git
+
+Move to the project directory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Most of the following commands assume you're working on this directory.
+[source,bash]
+$: cd blog/
+
+Run the bundler
+~~~~~~~~~~~~~~~
+This will install all the needed gems.
+[source,bash]
+$: bundle
+
+Setup the database
+~~~~~~~~~~~~~~~~~~
+Modify _config/database.yml_ so that it matches your postgres credentials. Normally you don't want this in your versioning, but time was running.
+
+After doing so, run either of this commands to setup your database.
+
+[source,bash]
+$: rake db:setup
+
+or
+
+[source, bash]
+$: rake db:create
+$: rake db:migrate
+$: rake db:seed
+
+IMPORTANT: It's *really* *important* that you seed the database. Since the project was done in a hurry the tenants are hardcoded. My work around for their creation was to create them on the database seeding.
+
+Setup your hosts
+~~~~~~~~~~~~~~~~
+This app uses subdomain multitenancy so we're gonna need to edit our hosts file so our browser detects them. +
+Open _/etc/hosts_ and add the following lines:
+
+[source,bash]
+127.0.0.1	hansolo.blog.dev
+127.0.0.1	chewbacca.blog.dev
+127.0.0.1	vader.blog.dev
+
+NOTE: You'll probably need super user privileges to write into this file.
+
+Running
+~~~~~~~
+
+Head to the project folder and run this command.
+
+[source,bash]
+$: rails s
+
+You're done! +
+Remember that you can always stop the server by pressing *CTRL+C*.
+
+Features
+--------
+
+Multitenancy
+~~~~~~~~~~~~
+This exercise features a multitenant application that uses subdomains to detect each tenant.
+
+Head to http://localhost:3000 in your browser. +
+Notice that the app will greet you as "Public". This is because the project uses the _apartment_ gem to use multitenancy and the default tenant is "public".
+
+Head to http://hansolo.blog.dev:3000/ +
+You'll notice that the blog is now greeting Captain Han Solo! But enough of greetings lets post something. Click the _Posts_ link, and then _New_ _Post_. After posting to your heart's content now head to http://hansolo.blog.dev:3000/posts +
+Would you look at that! Those are some nice posts we have written on then. But now our friend Chewie is getting impatient since he wants to post too.
+
+Head to http://chewbacca.blog.dev:3000 +
+The first thing you'll notice is that you can't actually see any of the posts that Cpt. Han Solo made. Multitenancy suceeded! Feel free to add some more posts if you feel like it. It all goes well and our friends leave, and an unexpected guest makes his appearance...
+
+Head to http://vader.blog.dev:3000 +
+An wild error appeared! Why? Well, sadly vader was not a registered tenant; it was never created. If you feel bad for vader feel free to run this commands which will create his tenant and let him post as well.
+[source,bash]
+$: rails c
+> Apartment::Tenant.create('vader')
+> exit
+
+Ain't that great?
+
+Interactors
+~~~~~~~~~~~
+An interactor was also used for the post creation. It's a really simple interactor with the class name *PublishPost* found on the file _app/interactors/publish_post.rb_.
+
+The only thing it does is it takes the post_params, makes a new post, and tries to save it. If it cannot save the post, it fails.
+
+Testing
+~~~~~~~
+A very small tid bit of testing was done.
+Scaffolding took care of basically of most of the testing so I instead tested the interactor.
+The testing was done using minitest, shoulda-context and mocha.
+
+Use this command to run the tests:
+
+[source,bash]
+$: rake test
+
+Afterword
+---------
+Probably not much is left to be said, but I feel that everything needs an epilogue of sorts. I really liked completing this exercise. Even if it was not particularly complicated to solve the time constraint really made it exciting.
+
+So there you go, an epilogue of sorts!
