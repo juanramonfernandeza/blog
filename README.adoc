@@ -1,10 +1,10 @@
-Blog
-====
+Multi Tenant Blog
+=================
 
 Introduction
 ------------
 
-This was an exercise provided by Polo and Isaac. The goal was to write a rails app in 2 hours that had multitenancy, and if possible used interactors.
+This was an assignment provided by Polo and Isaac. The goal was to write a rails app in 2 hours that had multitenancy, and if possible use interactors.
 
 
 Requirements
@@ -79,7 +79,7 @@ Features
 
 Multitenancy
 ~~~~~~~~~~~~
-This exercise features a multitenant application that uses subdomains to detect each tenant.
+This assignment features a multitenant application that uses subdomains to detect each tenant.
 
 Head to http://localhost:3000 in your browser. +
 Notice that the app will greet you as "Public". This is because the project uses the _apartment_ gem to use multitenancy and the default tenant is "public".
@@ -119,6 +119,6 @@ $: rake test
 
 Afterword
 ---------
-Probably not much is left to be said, but I feel that everything needs an epilogue of sorts. I really liked completing this exercise. Even if it was not particularly complicated to solve the time constraint really made it exciting.
+Probably not much is left to be said, but I feel that everything needs an epilogue of sorts. I really liked completing this assignment. Even if it was not particularly complicated to solve the time constraint really made it exciting.
 
 So there you go, an epilogue of sorts!
